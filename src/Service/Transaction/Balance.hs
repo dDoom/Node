@@ -84,7 +84,7 @@ updateBalanceTable db i ht isStorno t@(Transaction fromKey toKey am _ _ _ _) = d
     (_, Nothing)       -> do return ()
     (Just balanceFrom, Just balanceTo) ->
       if (isStorno == False)
-      then when ((balanceFrom - am) > 0) $ do
+      then when ((balanceFrom - am) >= 0) $ do
         -- writeLog i [BDTag] Info $ "Forward tx: fromKey " ++ show fromKey ++ " toKey " ++ show toKey ++ " - amount " ++ show am
         H.insert ht fromKey (balanceFrom - am)
         H.insert ht toKey (balanceTo + am)
