@@ -50,7 +50,7 @@ syncServer (_, outSyncChan) aDBActorChan aManagerChan aInfoChan = do
                     aLog $ "Recived response tail " ++ show aNum
                     aMyTail  <- takeMyTail aDBActorChan
                     aLog $ "My tail is: " ++ show aMyTail
-                    when (aMyTail < aNum) $ do
+                    when (aMyTail <= aNum) $ do
                         aLog $ "Start of sync."
                         lastCommonNumber <- findBeforeFork aMyTail aNodeId outSyncChan aDBActorChan aManagerChan aInfoChan
                         void $ loadBlocks outSyncChan aDBActorChan aManagerChan (lastCommonNumber+1) aNum aNodeId aInfoChan
